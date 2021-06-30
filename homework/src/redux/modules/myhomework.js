@@ -1,4 +1,6 @@
-// myhomework.js
+import { firestore } from "../../firebase";
+
+const dict_db = firestore.collection("homework");
 
 // Actions
 const LOAD   = "myhomework/LOAD";
@@ -33,12 +35,39 @@ export const createMylist = (create) => {
     return {type: CREATE , create}
 }
 
+export const loadDictListFB = () => {
+  return function (dispatch){
 
+    dict_db.get().then((docs) => {
+      let dict_data =[];
+      docs.forEach((doc) => {
+        if (doc.exists) {
+          dict_data = [...dict_data, {id: doc.id, ...doc.data()}];
+        }
+      });
+      dispatch(loadMylist(dict_data));
+    });
+  }
+}
+
+export const addDictListFB = (create) => {
+  return function (dispatch) {
+    let dict_data = create;
+
+    dict_db.add(dict_data).then((docRef) => {
+      dict_data = { ...dict_data, id: docRef.id };
+      dispatch(createMylist(dict_data));
+    });
+  };
+};
   
 // Reducer
 export default function reducer(state = initialState, action = {}) {
   switch (action.type) {
     case "myhomework/LOAD" :{
+      if(action.list.length >0){
+        return {list: action.list};
+      }
         return state;
     }
     case "myhomework/CREATE" :{

@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 import { useDispatch } from "react-redux";
+import {addDictListFB} from "./redux/modules/myhomework";
 
 const Create = (props) => {
     const wordAdd = React.useRef(null);
@@ -28,7 +29,7 @@ const Create = (props) => {
             </div>
             <button onClick={() =>{
                 dispatch(
-                    AddListFB({
+                    addDictListFB({
                         word : wordAdd.current.value,
                         mean : meanAdd.current.value,
                         desc : descAdd.current.value,

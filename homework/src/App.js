@@ -2,6 +2,7 @@ import React from "react";
 import { withRouter } from "react-router";
 import { Route, Switch } from "react-router-dom";
 
+
 import styled from "styled-components";
 
 import Main from './Main';
@@ -10,7 +11,7 @@ import NotFound from "./NotFound";
 
 
 import { connect } from 'react-redux';
-import { loadMylist, createMylist } from './redux/modules/myhomework';
+import { loadDictListFB, addDictListFB } from './redux/modules/myhomework';
 
 
 const mapStateToProps = (state) => {
@@ -20,10 +21,10 @@ const mapStateToProps = (state) => {
 // 이 함수는 값을 변화시키기 위한 액션 생성 함수를 props로 받아오기 위한 함수예요.
 const mapDispatchToProps = (dispatch) => ({
   load: () => {
-    dispatch(loadMylist());
+    dispatch(loadDictListFB());
   },
   create: (new_list) => {
-    dispatch(createMylist(new_list));
+    dispatch(addDictListFB(new_list));
   }
 });
 
