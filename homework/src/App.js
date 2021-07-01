@@ -1,4 +1,5 @@
 import React from "react";
+import { useEffect } from "react";
 import { withRouter } from "react-router";
 import { Route, Switch } from "react-router-dom";
 
@@ -29,7 +30,9 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 function App(props) {
-
+  useEffect(() => {
+    props.load();
+  }, []);
   return (
     <div className="App">
       <Container>
@@ -47,12 +50,10 @@ function App(props) {
 
 const Container = styled.div`
   max-width: 350px;
-  min-height: 60vh;
-  background-color: #fff;
+  min-height: 100vh;
   padding: 16px;
   margin: 20px auto;
-  border-radius: 5px;
-  border: 1px solid #ddd;
+  border-radius: 10px;
 `;
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(App));
